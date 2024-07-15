@@ -1,24 +1,24 @@
 import speech_recognition as sr
 import pywhatkit
-import pyttsx3
+import pyttsx3                                     # Python text to speech library
 import datetime
 import webbrowser
 import wikipedia
 
-engine = pyttsx3.init()
+engine = pyttsx3.init()                             # Initiating the engine | engine is object
 voices = engine.getProperty('voices')
 engine.setProperty('voice', voices[0].id)
-recognizer = sr.Recognizer()
+recognizer = sr.Recognizer()                        # Initiating the speech recoganization library
 
-currassistant = 0
+currassistant = 0                                    # If 1 then Feamle, else if 0 then Male
 currcommand = ''
 
 def Fun():
     global currassistant
-    global command  # Declare command as global here
+    global command                                   # Declare command as global here
     go = True
     count = 1
-    command = ''  # Initialize command here
+    command = ''                                      # Initialize command here
     while go:
         with sr.Microphone() as source:
             if count == 1:
@@ -116,14 +116,14 @@ def Fun():
             engine.runAndWait()
             webbrowser.open('https://www.hdfcbank.com/')
 
-        elif 'name' in command:    # Name of Voice Assistant
+        elif 'name' in command:                                            # Name of Voice Assistant
             if currassistant == 0:
                 engine.say("I am John Your Virtual Assistant")
             else:
                 engine.say("I am Luci your Virtual Assistant")
             engine.runAndWait()
 
-        elif 'assistant' in command:    # Change Voice Assistant
+        elif 'assistant' in command:                                      # Change Voice Assistant
             if currassistant == 0:
                 currassistant = 1
             else:
@@ -131,11 +131,11 @@ def Fun():
             engine.setProperty('voice', voices[currassistant].id)
             engine.say("Changes applied")
 
-        elif 'exit' in command:         # Exit voice assistant
+        elif 'exit' in command:                                     # Exit voice assistant
             go = False
 
-        elif 'search' in command:       # Searching on WikiPedia
-            try:
+        elif 'search' in command:                                   # Searching on WikiPedia
+            try:    
                 #print('Printing your message...Please wait')
                 text = recognizer.recognize_google(recordedaudio, language='en-US')
                 # print('Your Message:{}', format(text))
